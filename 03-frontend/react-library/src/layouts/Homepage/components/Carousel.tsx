@@ -1,7 +1,7 @@
 import { ReturnBook } from "./ReturnBook";
 import { useEffect, useState } from "react";
 import BookModel from "../../../models/BookModel";
-import { SpinnerLoading } from "../../Utils/SpinnerLoading";
+
 
 export const Carousel = () => {
     //useState React Hook, allows to add state management to functional components
@@ -18,7 +18,7 @@ export const Carousel = () => {
         const fetchBooks = async () => {
 
             // Define the base URL for the API
-            const baseUrl: string ='http://localhost:8080/api/books';
+            const baseUrl: string = 'http://localhost:8080/api/books';
 
             // Construct the complete URL with pagination parameters
             const url: string = `${baseUrl}?page=0&size=9`;
@@ -94,23 +94,23 @@ export const Carousel = () => {
                 <div className='carousel-inner'>
                     <div className='carousel-item active'>
                         <div className='row d-flex justify-content-center align-items-center'>
-                            <ReturnBook />
-                            <ReturnBook />
-                            <ReturnBook />
+                            {books.slice(0, 3).map(book => (
+                                <ReturnBook book={book} key={book.id} />
+                            ))}
                         </div>
                     </div>
                     <div className='carousel-item'>
                         <div className='row d-flex justify-content-center align-items-center'>
-                            <ReturnBook />
-                            <ReturnBook />
-                            <ReturnBook />
+                            {books.slice(3, 6).map(book => (
+                                <ReturnBook book={book} key={book.id} />
+                            ))}
                         </div>
                     </div>
                     <div className='carousel-item'>
                         <div className='row d-flex justify-content-center align-items-center'>
-                            <ReturnBook />
-                            <ReturnBook />
-                            <ReturnBook />
+                            {books.slice(6, 9).map(book => (
+                                <ReturnBook book={book} key={book.id} />
+                            ))}
                         </div>
                     </div>
                     <button className='carousel-control-prev' type='button'
@@ -129,7 +129,7 @@ export const Carousel = () => {
             {/* Mobile */}
             <div className='d-lg-none mt-3'>
                 <div className='row d-flex justify-content-center align-items-center'>
-                    <ReturnBook />
+                    <ReturnBook book={books[7]} key={books[7].id} />
                 </div>
             </div>
             <div className='homepage-carousel-title mt-3'>
