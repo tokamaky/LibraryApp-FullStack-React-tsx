@@ -1,7 +1,7 @@
 import { ReturnBook } from "./ReturnBook";
 import { useEffect, useState } from "react";
 import BookModel from "../../../models/BookModel";
-import { SpinnerLoading } from "../../Units/SpinnerLoading";
+import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 
 
 export const Carousel = () => {
@@ -19,7 +19,7 @@ export const Carousel = () => {
         const fetchBooks = async () => {
 
             // Define the base URL for the API
-            const baseUrl: string = 'http://localhost:8080/api/books';
+            const baseUrl: string = "http://localhost:8080/api/books";
 
             // Construct the complete URL with pagination parameters
             const url: string = `${baseUrl}?page=0&size=9`;
@@ -112,6 +112,7 @@ export const Carousel = () => {
                             ))}
                         </div>
                     </div>
+                 </div>
                     <button className='carousel-control-prev' type='button'
                         data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
                         <span className='carousel-control-prev-icon' aria-hidden='true'></span>
@@ -123,7 +124,7 @@ export const Carousel = () => {
                         <span className='visually-hidden'>Next</span>
                     </button>
                 </div>
-            </div>
+            
 
             {/* Mobile */}
             <div className='d-lg-none mt-3'>
