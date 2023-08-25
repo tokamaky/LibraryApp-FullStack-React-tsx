@@ -4,7 +4,9 @@ js, ts, react, springboot, mysql
 
 
 
-run npm install to init
+run       npm install        to init
+          npm install react-router-dom@5
+          npm i --save-dev @types/react-router-dom
 
 
 
