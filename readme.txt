@@ -7,6 +7,8 @@ js, ts, react, springboot, mysql
 run       npm install        to init
           npm install react-router-dom@5
           npm i --save-dev @types/react-router-dom
+          npm install @okta/okta-signin-widget@6.3.3
+          npm install @okta/okta-react@6.4.3
 
 
 

@@ -48,7 +48,7 @@ export const CheckoutAndReviewBox: React.FC<{
             <div className='card-body container'>
                 <div className='mt-3'>
                     <p>
-                        <b>{props.currentLoansCount}/5 </b>
+                        <b>{/*props.currentLoansCount*/}0/5 </b>
                         books checked out
                     </p>
                     <hr />
