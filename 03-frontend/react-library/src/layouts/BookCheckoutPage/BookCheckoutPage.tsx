@@ -109,7 +109,7 @@ export const BookCheckoutPage = () => {
     }, []);
 
 
-    if (isLoading) {
+    if (isLoading || isLoadingReview) {
         return (
             <SpinnerLoading />
         )
@@ -143,12 +143,11 @@ export const BookCheckoutPage = () => {
                             <StarsReview rating={totalStars} size={32} />
                         </div>
                     </div>
-                    <CheckoutAndReviewBox book={book} mobile={false} />
+                    <CheckoutAndReviewBox book={book} mobile={false}/>
                 </div>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
             </div>
-            {/*mobile app */}
             <div className='container d-lg-none mt-5'>
                 <div className='d-flex justify-content-center alighn-items-center'>
                     {book?.img ?
@@ -163,12 +162,12 @@ export const BookCheckoutPage = () => {
                         <h2>{book?.title}</h2>
                         <h5 className='text-primary'>{book?.author}</h5>
                         <p className='lead'>{book?.description}</p>
-
+                        <StarsReview rating={totalStars} size={32} />
                     </div>
                 </div>
-
+                <CheckoutAndReviewBox book={book} mobile={true}/>
                 <hr />
-
+                <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
             </div>
         </div>
     );

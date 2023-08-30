@@ -1,11 +1,7 @@
 package com.JerryLibrary.springbootlibrary.entity;
 
 import java.util.Date;
-
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
-
-
 import lombok.Data;
 import jakarta.persistence.*;
 
@@ -35,6 +31,14 @@ public class Review {
 
     @Column(name = "review_description")
     private String reviewDescription;
+
+
+
+
+
+
+
+
 
 
 }
