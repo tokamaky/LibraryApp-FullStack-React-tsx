@@ -3,7 +3,7 @@ package com.JerryLibrary.springbootlibrary.entity;
 import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.Data;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity

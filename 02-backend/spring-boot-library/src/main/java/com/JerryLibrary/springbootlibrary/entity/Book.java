@@ -1,7 +1,7 @@
 package com.JerryLibrary.springbootlibrary.entity;
 
 import lombok.Data;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity

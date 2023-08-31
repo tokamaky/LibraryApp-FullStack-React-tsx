@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import BookModel from "../../models/BookModel";
 
 export const CheckoutAndReviewBox: React.FC<{
-    book: BookModel | undefined, mobile: boolean
+    book: BookModel | undefined, mobile: boolean, currentLoansCount: number, isAuthenticated: any, isCheckedOut: boolean, checkoutBook: any 
 }> = (props) => {
 
-    /* function buttonRender() {
+     function buttonRender() {
         //5 books one time 
         
         if (props.isAuthenticated) {
@@ -19,7 +19,7 @@ export const CheckoutAndReviewBox: React.FC<{
         }
         return (<Link to={'/login'} className='btn btn-success btn-lg'>Sign in</Link>)
     }
-
+/*
     function reviewRender() {
         if (props.isAuthenticated && !props.isReviewLeft) {
             return(
@@ -48,7 +48,7 @@ export const CheckoutAndReviewBox: React.FC<{
             <div className='card-body container'>
                 <div className='mt-3'>
                     <p>
-                        <b>{/*props.currentLoansCount*/}0/5 </b>
+                        <b>{props.currentLoansCount}0/5 </b>
                         books checked out
                     </p>
                     <hr />
@@ -74,7 +74,7 @@ export const CheckoutAndReviewBox: React.FC<{
                         </p>
                     </div>
                 </div>
-                {/*buttonRender()*/}
+                {buttonRender()}
                 <hr />
                 <p className='mt-3'>
                     This number can change until placing order has been complete.
