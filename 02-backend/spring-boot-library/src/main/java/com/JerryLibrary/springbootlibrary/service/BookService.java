@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.JerryLibrary.springbootlibrary.dao.BookRepository;
 import com.JerryLibrary.springbootlibrary.dao.CheckoutRepository;
+import com.JerryLibrary.springbootlibrary.dao.HistoryRepository;
 import com.JerryLibrary.springbootlibrary.entity.Book;
 import com.JerryLibrary.springbootlibrary.entity.Checkout;
+import com.JerryLibrary.springbootlibrary.entity.History;
 import com.JerryLibrary.springbootlibrary.responsemodels.ShelfCurrentLoansResponse;
 
 @Service
@@ -25,10 +27,14 @@ public class BookService {
 
     private CheckoutRepository checkoutRepository;
 
-    public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository) {
+        private HistoryRepository historyRepository;
+
+    public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository,
+    HistoryRepository historyRepository) {
 
         this.bookRepository = bookRepository;
         this.checkoutRepository = checkoutRepository;
+        this.historyRepository = historyRepository;
 
     }
 
@@ -120,6 +126,18 @@ public class BookService {
 
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getBookId());
+
+                History history = new History(
+                userEmail,
+                validateCheckout.getCheckoutDate(),
+                LocalDate.now().toString(),
+                book.get().getTitle(),
+                book.get().getAuthor(),
+                book.get().getDescription(),
+                book.get().getImg()
+        );
+
+        historyRepository.save(history);
 
     }
 
