@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.JerryLibrary.springbootlibrary.entity.Book;
+import com.JerryLibrary.springbootlibrary.entity.Message;
 import com.JerryLibrary.springbootlibrary.entity.Review;
 
 @Configuration
@@ -28,12 +29,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // expose a ID so that user is able to check it
         config.exposeIdsFor(Book.class);
         config.exposeIdsFor(Review.class);
-        // config.exposeIdsFor(Message.class);
+        config.exposeIdsFor(Message.class);
 
         // disable the functions for get pust delete
         disableHttpMethods(Book.class, config, theUnsupportedActions);
         disableHttpMethods(Review.class, config, theUnsupportedActions);
-        // disableHttpMethods(Message.class, config, theUnsupportedActions);
+        disableHttpMethods(Message.class, config, theUnsupportedActions);
 
         /*
          * Configure CORS Mapping
