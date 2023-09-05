@@ -29,12 +29,16 @@ public class MessagesController {
     @PutMapping("/secure/admin/message")
     public void putMessage(@RequestHeader(value="Authorization") String token,
                            @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+        //Extract the user's email from the token
         String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        //Extract the user's type from the token
         String admin = ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
-        if (admin == null || !admin.equals("admin")) {
+        //Check if the user is an admin
+        if (admin == null ||!admin.equals("admin")) {
+            //Throw an exception if the user is not an admin
             throw new Exception("Administration page only.");
         }
+        //Call the putMessage method of the messagesService to store the message
         messagesService.putMessage(adminQuestionRequest, userEmail);
     }
-
 }
