@@ -2,15 +2,11 @@ import { Link } from "react-router-dom";
 import BookModel from "../../models/BookModel";
 import { LeaveAReview } from "../Utils/LeaveAReview";
 
-export const CheckoutAndReviewBox: React.FC<{
-    book: BookModel | undefined, mobile: boolean, currentLoansCount: number,
-     isAuthenticated: any, isCheckedOut: boolean, checkoutBook: any, isReviewLeft:boolean,
-     submitReview:any
-}> = (props) => {
+export const CheckoutAndReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean, 
+    currentLoansCount: number, isAuthenticated: any, isCheckedOut: boolean, 
+    checkoutBook: any, isReviewLeft: boolean, submitReview: any }> = (props) => {
 
-     function buttonRender() {
-        //5 books one time 
-        
+    function buttonRender() {
         if (props.isAuthenticated) {
             if (!props.isCheckedOut && props.currentLoansCount < 5) {
                 return (<button onClick={() => props.checkoutBook()} className='btn btn-success btn-lg'>Checkout</button>)
@@ -27,8 +23,7 @@ export const CheckoutAndReviewBox: React.FC<{
         if (props.isAuthenticated && !props.isReviewLeft) {
             return(
             <p>
-                { <LeaveAReview submitReview={props.submitReview}/> }
-
+                <LeaveAReview submitReview={props.submitReview}/>
             </p>
             )
         } else if (props.isAuthenticated && props.isReviewLeft) {
@@ -44,18 +39,17 @@ export const CheckoutAndReviewBox: React.FC<{
             <p>Sign in to be able to leave a review.</p>
         </div>
         )
-    } 
-    
+    }
+
     return (
         <div className={props.mobile ? 'card d-flex mt-5' : 'card col-3 container d-flex mb-5'}>
             <div className='card-body container'>
                 <div className='mt-3'>
                     <p>
-                        <b>{props.currentLoansCount}0/5 </b>
+                        <b>{props.currentLoansCount}/5 </b>
                         books checked out
                     </p>
                     <hr />
-                    
                     {props.book && props.book.copiesAvailable && props.book.copiesAvailable > 0 ?
                         <h4 className='text-success'>
                             Available
@@ -65,7 +59,6 @@ export const CheckoutAndReviewBox: React.FC<{
                             Wait List
                         </h4>
                     }
-
                     <div className='row'>
                         <p className='col-6 lead'>
                             <b>{props.book?.copies} </b>
@@ -86,5 +79,4 @@ export const CheckoutAndReviewBox: React.FC<{
             </div>
         </div>
     );
-
 }

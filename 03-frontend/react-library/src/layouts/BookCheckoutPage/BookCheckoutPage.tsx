@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import BookModel from "../../models/BookModel"
+import BookModel from "../../models/BookModel";
+import ReviewModel from "../../models/ReviewModel";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { StarsReview } from "../Utils/StarsReview";
-import ReviewModel from "../../models/ReviewModel";
 import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
 import { LatestReviews } from "./LatestReviews";
 import { useOktaAuth } from "@okta/okta-react";
@@ -36,22 +36,15 @@ export const BookCheckoutPage = () => {
 
     useEffect(() => {
         const fetchBook = async () => {
-
-            // Define the base URL for the API
             const baseUrl: string = `http://localhost:8080/api/books/${bookId}`;
 
-            // Fetch data from the API
             const response = await fetch(baseUrl);
 
-            // Check if the response is successful (HTTP status 200-299)
             if (!response.ok) {
                 throw new Error('Something went wrong!');
             }
 
-            // Parse the response JSON
             const responseJson = await response.json();
-
-
 
             const loadedBook: BookModel = {
                 id: responseJson.id,
@@ -67,14 +60,11 @@ export const BookCheckoutPage = () => {
             setBook(loadedBook);
             setIsLoading(false);
         };
-
-        //catch the error because using async, if there's any error stop loading and show error message 
         fetchBook().catch((error: any) => {
             setIsLoading(false);
             setHttpError(error.message);
         })
     }, [isCheckedOut]);
-
 
     useEffect(() => {
         const fetchBookReviews = async () => {
@@ -153,13 +143,13 @@ export const BookCheckoutPage = () => {
                 const url = `http://localhost:8080/api/books/secure/currentloans/count`;
                 const requestOptions = {
                     method: 'GET',
-                    headers: {
+                    headers: { 
                         Authorization: `Bearer ${authState.accessToken?.accessToken}`,
                         'Content-Type': 'application/json'
-                    }
+                     }
                 };
                 const currentLoansCountResponse = await fetch(url, requestOptions);
-                if (!currentLoansCountResponse.ok) {
+                if (!currentLoansCountResponse.ok)  {
                     throw new Error('Something went wrong!');
                 }
                 const currentLoansCountResponseJson = await currentLoansCountResponse.json();
@@ -254,7 +244,6 @@ export const BookCheckoutPage = () => {
         setIsReviewLeft(true);
     }
 
-
     return (
         <div>
             <div className='container d-none d-lg-block'>
@@ -275,9 +264,9 @@ export const BookCheckoutPage = () => {
                             <StarsReview rating={totalStars} size={32} />
                         </div>
                     </div>
-                    <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount}
-                        isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut}
-                        checkoutBook={checkoutBook}  isReviewLeft={isReviewLeft} submitReview={{submitReview}}/>
+                    <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount} 
+                        isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut} 
+                        checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={submitReview}/>
                 </div>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
@@ -299,9 +288,9 @@ export const BookCheckoutPage = () => {
                         <StarsReview rating={totalStars} size={32} />
                     </div>
                 </div>
-                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount}
-                    isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut}
-                    checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={{submitReview}}/>
+                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} 
+                    isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut} 
+                    checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={submitReview}/>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
             </div>
