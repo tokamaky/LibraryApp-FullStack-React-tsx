@@ -49,7 +49,7 @@ export const AddNewBook = () => {
     }
     async function submitNewBook() {
         // Get the URL of the API endpoint
-        const url = `http://localhost:8080/api/admin/secure/add/book`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/add/book`;
         // Check if the user is authenticated and if the title, author, category, description, and copies are not empty
         if (authState?.isAuthenticated && title!== '' && author!== '' && category!== 'Category' 
             && description!== '' && copies >= 0) {

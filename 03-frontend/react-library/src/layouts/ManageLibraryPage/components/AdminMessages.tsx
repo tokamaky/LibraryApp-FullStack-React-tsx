@@ -31,7 +31,7 @@ export const AdminMessages = () => {
             // Check if user is logged in
             if (authState && authState.isAuthenticated) {
                 // Create URL for messages
-                const url = `http://localhost:8080/api/messages/search/findByClosed/?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`;
+                const url = `${process.env.REACT_APP_API}/messages/search/findByClosed/?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`;
                 // Create request options
                 const requestOptions = {
                     method: 'GET',
@@ -88,7 +88,7 @@ export const AdminMessages = () => {
     // Async function to submit response to question
     async function submitResponseToQuestion(id: number, response: string) {
         // Create URL for message
-        const url = `http://localhost:8080/api/messages/secure/admin/message`;
+        const url = `${process.env.REACT_APP_API}/messages/secure/admin/message`;
         // Check if user is logged in and if id and response are not null
         if (authState && authState?.isAuthenticated && id!== null && response!== '') {
             // Create message request model

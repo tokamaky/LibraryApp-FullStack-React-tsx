@@ -21,7 +21,7 @@ export const ChangeQuantityOfBooks = () => {
         // Create a fetch request to the API
         const fetchBooks = async () => {
             // Create a base URL for the API
-            const baseUrl: string = `http://localhost:8080/api/books?page=${currentPage - 1}&size=${booksPerPage}`;
+            const baseUrl: string = `${process.env.REACT_APP_API}/books?page=${currentPage - 1}&size=${booksPerPage}`;
 
             // Make the request to the API
             const response = await fetch(baseUrl);

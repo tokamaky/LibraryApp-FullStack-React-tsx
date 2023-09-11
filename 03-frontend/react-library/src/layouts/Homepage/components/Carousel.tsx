@@ -20,7 +20,7 @@ export const Carousel = () => {
         const fetchBooks = async () => {
 
             // Define the base URL for the API
-            const baseUrl: string = "http://localhost:8080/api/books";
+            const baseUrl: string = `${process.env.REACT_APP_API}/books`;
 
             // Construct the complete URL with pagination parameters
             const url: string = `${baseUrl}?page=0&size=9`;

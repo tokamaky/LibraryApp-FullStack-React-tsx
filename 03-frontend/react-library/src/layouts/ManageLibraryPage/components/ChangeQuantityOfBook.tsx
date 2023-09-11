@@ -21,7 +21,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel, deleteBook: any }
     // Increase the quantity of the book
     async function increaseQuantity() {
         // Create the URL for the API call
-        const url = `http://localhost:8080/api/admin/secure/increase/book/quantity/?bookId=${props.book?.id}`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/increase/book/quantity/?bookId=${props.book?.id}`;
         // Create the request options
         const requestOptions = {
             method: 'PUT',
@@ -45,7 +45,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel, deleteBook: any }
     // Decrease the quantity of the book
     async function decreaseQuantity() {
         // Create the URL for the API call
-        const url = `http://localhost:8080/api/admin/secure/decrease/book/quantity/?bookId=${props.book?.id}`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/decrease/book/quantity/?bookId=${props.book?.id}`;
         // Create the request options
         const requestOptions = {
             method: 'PUT',
@@ -69,7 +69,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel, deleteBook: any }
     // Delete the book
     async function deleteBook() {
         // Create the URL for the API call
-        const url = `http://localhost:8080/api/admin/secure/delete/book/?bookId=${props.book?.id}`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/delete/book/?bookId=${props.book?.id}`;
         // Create the request options
         const requestOptions = {
             method: 'DELETE',
