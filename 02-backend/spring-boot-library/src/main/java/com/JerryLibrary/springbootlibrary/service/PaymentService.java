@@ -2,6 +2,7 @@ package com.JerryLibrary.springbootlibrary.service;
 
 import com.JerryLibrary.springbootlibrary.dao.PaymentRepository;
 import com.JerryLibrary.springbootlibrary.entity.Payment;
+import com.JerryLibrary.springbootlibrary.requestmodels.PaymentInfoRequest;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;

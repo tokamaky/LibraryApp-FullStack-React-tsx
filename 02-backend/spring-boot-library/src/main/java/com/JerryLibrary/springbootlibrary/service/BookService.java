@@ -35,7 +35,7 @@ public class BookService {
     private PaymentRepository paymentRepository;
 
     public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository,
-            HistoryRepository historyRepository) {
+                       HistoryRepository historyRepository, PaymentRepository paymentRepository) {
         this.bookRepository = bookRepository;
         this.checkoutRepository = checkoutRepository;
         this.historyRepository = historyRepository;
@@ -44,66 +44,50 @@ public class BookService {
 
     public Book checkoutBook (String userEmail, Long bookId) throws Exception {
 
-        // Find the book by its ID
         Optional<Book> book = bookRepository.findById(bookId);
 
-        // Check if the book exists
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
-        // Check if the book is already checked out by the user
-        if (!book.isPresent() || validateCheckout!= null || book.get().getCopiesAvailable() <= 0) {
+        if (!book.isPresent() || validateCheckout != null || book.get().getCopiesAvailable() <= 0) {
             throw new Exception("Book doesn't exist or already checked out by user");
         }
 
-        // Find all the books checked out by the user
         List<Checkout> currentBooksCheckedOut = checkoutRepository.findBooksByUserEmail(userEmail);
 
-        // Create a SimpleDateFormat object to parse the return date
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        // Set a boolean to determine if the book needs to be returned
         boolean bookNeedsReturned = false;
 
-        // Iterate through the list of books checked out by the user
         for (Checkout checkout: currentBooksCheckedOut) {
-            // Parse the return date of the book
             Date d1 = sdf.parse(checkout.getReturnDate());
             Date d2 = sdf.parse(LocalDate.now().toString());
 
-            // Calculate the difference in time between the two dates
             TimeUnit time = TimeUnit.DAYS;
 
             double differenceInTime = time.convert(d1.getTime() - d2.getTime(), TimeUnit.MILLISECONDS);
 
-            // Check if the difference in time is less than 0
             if (differenceInTime < 0) {
                 bookNeedsReturned = true;
                 break;
             }
         }
 
-        // Find the user's payment
         Payment userPayment = paymentRepository.findByUserEmail(userEmail);
 
-        // Check if the user has any outstanding fees
-        if ((userPayment!= null && userPayment.getAmount() > 0) || (userPayment!= null && bookNeedsReturned)) {
+        if ((userPayment != null && userPayment.getAmount() > 0) || (userPayment != null && bookNeedsReturned)) {
             throw new Exception("Outstanding fees");
         }
 
-        // Check if the user has a payment
         if (userPayment == null) {
-            // Create a new payment
             Payment payment = new Payment();
             payment.setAmount(00.00);
             payment.setUserEmail(userEmail);
             paymentRepository.save(payment);
         }
 
-        // Decrement the number of copies available of the book
         book.get().setCopiesAvailable(book.get().getCopiesAvailable() - 1);
         bookRepository.save(book.get());
 
-        // Create a new checkout
         Checkout checkout = new Checkout(
                 userEmail,
                 LocalDate.now().toString(),
@@ -111,13 +95,10 @@ public class BookService {
                 book.get().getId()
         );
 
-        // Save the checkout
         checkoutRepository.save(checkout);
 
-        // Return the book
         return book.get();
     }
-
     public Boolean checkoutBookByUser(String userEmail, Long bookId) {
         // Find the checkout by the user's email and book ID
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
