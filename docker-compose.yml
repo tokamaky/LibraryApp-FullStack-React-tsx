@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ./02-backend/spring-boot-library
+      dockerfile: Dockerfile
+    ports:
+      - "8443:8443"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=8443
+  frontend:
+    build:
+      context: ./03-frontend/react-library
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend:8443
+    depends_on:
+      - backend
