@@ -16,6 +16,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://backend:8443
+      - REACT_APP_API_URL=https://localhost:8443/api
     depends_on:
       - backend
