@@ -9,7 +9,7 @@ COPY . /app
 RUN apt-get update && apt-get install -y maven && mvn clean compile
 
 # Expose the default Spring Boot port
-EXPOSE 8080
+EXPOSE 8443
 
 # Run the Spring Boot application
 CMD ["mvn", "spring-boot:run"]

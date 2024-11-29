@@ -1,21 +1,56 @@
-version: "3.8"
+version: '3.8'
+
 services:
   backend:
     build:
       context: ./02-backend/spring-boot-library
       dockerfile: Dockerfile
+    container_name: spring-boot-library
     ports:
-      - "8443:8443"
+      - "8443:8443" # Maps Spring Boot HTTPS port
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - SERVER_PORT=8443
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/reactlibrarydatabase?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=test1234!
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - OKTA_OAUTH2_CLIENT_ID=0oab0tgquocBadzGC5d7
+      - OKTA_OAUTH2_ISSUER=https://dev-72128783.okta.com/oauth2/default
+      - STRIPE_KEY_SECRET=sk_test_51NB5ncHxkucgKlfvVAEUxoxCPu88G8U7m9sySElQ9Z1kQofFMjqZ7wxfRFh5zlRdHkr8X3AbxDTcovJdgln9Jd8x00KCj9jwpf
+    networks:
+      - react-library-network
+
   frontend:
     build:
       context: ./03-frontend/react-library
       dockerfile: Dockerfile
+    container_name: react-library-frontend
     ports:
-      - "3000:3000"
+      - "3000:3000" # Maps React development server
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./03-frontend/react-library:/frontend
+      - /frontend/node_modules
     environment:
-      - REACT_APP_API_URL=https://localhost:8443/api
+      - SSL_CRT_FILE=ssl-localhost/localhost.crt
+      - SSL_KEY_FILE=ssl-localhost/localhost.key
+      - REACT_APP_API=https://backend:8443/api
     depends_on:
       - backend
+    networks:
+      - react-library-network
+
+  db:
+    image: mysql:8
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: test1234!
+      MYSQL_DATABASE: reactlibrarydatabase
+    ports:
+      - "3306:3306"  # Maps MySQL port
+    networks:
+      - react-library-network
+
+networks:
+  react-library-network:
+    driver: bridge
