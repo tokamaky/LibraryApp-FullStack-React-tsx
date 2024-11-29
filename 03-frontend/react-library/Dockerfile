@@ -11,6 +11,9 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application files
+# Dockerfile for frontend
+COPY ./ssl-localhost/localhost.crt /app/ssl-localhost/localhost.crt
+COPY ./ssl-localhost/localhost.key /app/ssl-localhost/localhost.key
 COPY . .
 
 # Expose the default React port

@@ -48,7 +48,7 @@ export const PaymentPage = () => {
 
         let paymentInfo = new PaymentInfoRequest(Math.round(fees * 100), 'USD', authState?.accessToken?.claims.sub);
 
-        const url = `https://backend:8443/api/payment/secure/payment-intent`;
+        const url = `https://localhost:8443/api/payment/secure/payment-intent`;
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -79,7 +79,7 @@ export const PaymentPage = () => {
                 setSubmitDisabled(false)
                 alert('There was an error')
             } else {
-                const url = `https://backend:8443/api/payment/secure/payment-complete`;
+                const url = `https://localhost:8443/api/payment/secure/payment-complete`;
                 const requestOptions = {
                     method: 'PUT',
                     headers: {

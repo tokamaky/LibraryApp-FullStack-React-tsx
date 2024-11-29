@@ -34,7 +34,8 @@ services:
     environment:
       - SSL_CRT_FILE=ssl-localhost/localhost.crt
       - SSL_KEY_FILE=ssl-localhost/localhost.key
-      - REACT_APP_API=https://backend:8443/api
+      - REACT_APP_API=https://localhost:8443/api
+      - HTTPS=true
     depends_on:
       - backend
     networks:
