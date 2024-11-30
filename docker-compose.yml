@@ -47,6 +47,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: test1234!
       MYSQL_DATABASE: reactlibrarydatabase
+    #volumes:
+      #- ./01-starter-files/Scripts:/docker-entrypoint-initdb.d  # Mount the Scripts folder for initialization
     ports:
       - "3306:3306"  # Maps MySQL port
     networks:
