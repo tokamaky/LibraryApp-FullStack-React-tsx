@@ -6,7 +6,7 @@ import com.JerryLibrary.springbootlibrary.requestmodels.ReviewRequest;
 import com.JerryLibrary.springbootlibrary.service.ReviewService;
 import com.JerryLibrary.springbootlibrary.utils.ExtractJWT;
 
-@CrossOrigin("https://jerrylibrarybackend.up.railway.app")
+@CrossOrigin("https://jerrylibrary.up.railway.app")
 @RestController
 @RequestMapping("/api/reviews")
 public class ReviewController {
