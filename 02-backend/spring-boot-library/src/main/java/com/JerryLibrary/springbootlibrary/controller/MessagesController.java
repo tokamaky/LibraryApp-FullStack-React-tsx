@@ -7,7 +7,7 @@ import com.JerryLibrary.springbootlibrary.requestmodels.AdminQuestionRequest;
 import com.JerryLibrary.springbootlibrary.service.MessagesService;
 import com.JerryLibrary.springbootlibrary.utils.ExtractJWT;
 
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("https://jerrylibrarybackend.up.railway.app")
 @RestController
 @RequestMapping("/api/messages")
 public class MessagesController {
