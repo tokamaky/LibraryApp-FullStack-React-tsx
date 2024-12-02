@@ -7,17 +7,21 @@ services:
       dockerfile: Dockerfile
     container_name: spring-boot-library
     ports:
-      - "8443:8443" # Maps Spring Boot HTTPS port
+      - "8443:8443"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/reactlibrarydatabase?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=test1234!
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
       - OKTA_OAUTH2_CLIENT_ID=0oab0tgquocBadzGC5d7
       - OKTA_OAUTH2_ISSUER=https://dev-72128783.okta.com/oauth2/default
       - STRIPE_KEY_SECRET=sk_test_51NB5ncHxkucgKlfvVAEUxoxCPu88G8U7m9sySElQ9Z1kQofFMjqZ7wxfRFh5zlRdHkr8X3AbxDTcovJdgln9Jd8x00KCj9jwpf
     networks:
       - react-library-network
+    depends_on:
+      - db
+
 
   frontend:
     build:
@@ -25,7 +29,7 @@ services:
       dockerfile: Dockerfile
     container_name: react-library-frontend
     ports:
-      - "3000:3000" # Maps React development server
+      - "3000:3000"
     stdin_open: true
     tty: true
     volumes:
@@ -47,12 +51,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: test1234!
       MYSQL_DATABASE: reactlibrarydatabase
-    #volumes:
-      #- ./01-starter-files/Scripts:/docker-entrypoint-initdb.d  # Mount the Scripts folder for initialization
     ports:
-      - "3306:3306"  # Maps MySQL port
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./01-starter-files/Scripts:/docker-entrypoint-initdb.d
     networks:
       - react-library-network
+
+volumes:
+  db_data:
 
 networks:
   react-library-network:
