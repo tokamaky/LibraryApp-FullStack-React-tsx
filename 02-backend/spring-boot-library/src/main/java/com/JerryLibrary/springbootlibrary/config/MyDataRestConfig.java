@@ -13,7 +13,7 @@ import com.JerryLibrary.springbootlibrary.entity.Review;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
-    private String theAllowedOrigins = "https://localhost:3000";
+    private String theAllowedOrigins = "https://jerrylibrary.up.railway.app";
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
