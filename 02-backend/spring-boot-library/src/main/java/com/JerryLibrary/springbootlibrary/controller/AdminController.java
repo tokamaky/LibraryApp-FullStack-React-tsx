@@ -7,7 +7,7 @@ import com.JerryLibrary.springbootlibrary.requestmodels.AddBookRequest;
 import com.JerryLibrary.springbootlibrary.service.AdminService;
 import com.JerryLibrary.springbootlibrary.utils.ExtractJWT;
 
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("https://jerrylibrary.up.railway.app")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
