@@ -41,6 +41,23 @@ Jerry Library is more than a CRUD demo — it's a **realistic SaaS-style library
 
 ---
 
+## 🏆 Engineering Highlights 
+
+| # | Highlight | Why it matters |
+|---|---|---|
+| 1 | **OAuth2 + OIDC with a real IdP (Okta)** — not a hand-rolled JWT system | Demonstrates understanding of industry-standard auth, JWKS, claim validation |
+| 2 | **Stripe Payment Intents API** with 3-D Secure | Real money, real complexity — far beyond the toy "checkout demo" |
+| 3 | **Spring Data REST + HATEOAS** with `MyDataRestConfig` | Auto-generated paginated endpoints with controlled exposure |
+| 4 | **6 entities, 6 repositories, proper layering** | Production-style separation of concerns (Controller → Service → DAO) |
+| 5 | **Custom RBAC via JWT role claim** in `SecurityConfiguration` | Declarative + procedural authorization |
+| 6 | **Multi-container Docker Compose** with environment-based config | Reproducible local dev for any teammate in one command |
+| 7 | **HTTPS in development** via self-signed certs | Exercises TLS-aware code paths that often hide bugs in plain-HTTP demos |
+| 8 | **Pagination + filtering on the catalog endpoint** | Real-world query design, not `findAll()` returning 10k rows |
+| 9 | **Cascade delete with care** — book deletion also clears reviews + history | Shows attention to referential integrity |
+| 10 | **Deployed to Railway** with isolated services | End-to-end DevOps, including TLS termination + custom domains |
+
+---
+
 ## 🏗️ System Architecture
 
 ```
@@ -349,28 +366,7 @@ POST /api/payment/secure/payment-intent                   Create Stripe PaymentI
 PUT  /api/payment/secure/payment-complete                 Mark fees as paid
 ```
 
----
 
-## 🏆 Engineering Highlights (for recruiters)
-
-| # | Highlight | Why it matters |
-|---|---|---|
-| 1 | **OAuth2 + OIDC with a real IdP (Okta)** — not a hand-rolled JWT system | Demonstrates understanding of industry-standard auth, JWKS, claim validation |
-| 2 | **Stripe Payment Intents API** with 3-D Secure | Real money, real complexity — far beyond the toy "checkout demo" |
-| 3 | **Spring Data REST + HATEOAS** with `MyDataRestConfig` | Auto-generated paginated endpoints with controlled exposure |
-| 4 | **6 entities, 6 repositories, proper layering** | Production-style separation of concerns (Controller → Service → DAO) |
-| 5 | **Custom RBAC via JWT role claim** in `SecurityConfiguration` | Declarative + procedural authorization |
-| 6 | **Multi-container Docker Compose** with environment-based config | Reproducible local dev for any teammate in one command |
-| 7 | **HTTPS in development** via self-signed certs | Exercises TLS-aware code paths that often hide bugs in plain-HTTP demos |
-| 8 | **Pagination + filtering on the catalog endpoint** | Real-world query design, not `findAll()` returning 10k rows |
-| 9 | **Cascade delete with care** — book deletion also clears reviews + history | Shows attention to referential integrity |
-| 10 | **Deployed to Railway** with isolated services | End-to-end DevOps, including TLS termination + custom domains |
-
----
-
-## 📸 Screenshots
-
-> *(Add screenshots: home page, book catalog, checkout flow, Stripe payment modal, admin panel.)*
 
 ---
 
