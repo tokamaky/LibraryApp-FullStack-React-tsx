@@ -1,16 +1,28 @@
-FROM openjdk:17-jdk-slim
+# ---- Build Stage ----
+FROM eclipse-temurin:17-jdk-jammy AS builder
 
 WORKDIR /app
 
-# Copy all application files into the container
-COPY . /app
+# Copy Maven wrapper and pom first (layer caching)
+COPY mvnw mvnw.cmd* ./
+COPY .mvn .mvn
+COPY pom.xml .
 
-# Install Maven and build the application inside the container
-RUN apt-get update && apt-get install -y maven && mvn clean compile
+# Download dependencies (cached unless pom.xml changes)
+RUN chmod +x mvnw && ./mvnw dependency:go-offline -B
 
-# Expose the default Spring Boot port
+# Copy source and build
+COPY src ./src
+RUN ./mvnw clean package -DskipTests -B
+
+# ---- Run Stage ----
+FROM eclipse-temurin:17-jre-jammy
+
+WORKDIR /app
+
+# Copy the built JAR from builder
+COPY --from=builder /app/target/Spring-boot-library-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8443
 
-# Run the Spring Boot application
-CMD ["mvn", "spring-boot:run"]
-
+ENTRYPOINT ["java", "-jar", "app.jar"]
